@@ -6,6 +6,7 @@ import { expandTo18Decimals } from './utils'
 
 import UniswapV2ERC20 from '@uniswap/v2-core/build/ERC20.json'
 import TestERC20 from '../build/TestERC20.json'
+import WETH9 from '../build/WETH9.json'
 import StakingRewards from '../build/StakingRewards.json'
 import StakingRewardsFactory from '../build/StakingRewardsFactory.json'
 
@@ -23,6 +24,20 @@ export async function stakingRewardsFixture([wallet]: Wallet[]): Promise<Staking
   const rewardsDistribution = wallet.address
   const rewardsToken = await deployContract(wallet, TestERC20, [expandTo18Decimals(1000000)])
   const stakingToken = await deployContract(wallet, UniswapV2ERC20, [expandTo18Decimals(1000000)])
+
+  const stakingRewards = await deployContract(wallet, StakingRewards, [
+    rewardsDistribution,
+    rewardsToken.address,
+    stakingToken.address,
+  ])
+
+  return { stakingRewards, rewardsToken, stakingToken }
+}
+
+export async function stakingRewardsETHFixture([wallet]: Wallet[]): Promise<StakingRewardsFixture> {
+  const rewardsDistribution = wallet.address
+  const rewardsToken = await deployContract(wallet, WETH9, [expandTo18Decimals(1000000)])
+  const stakingToken = await deployContract(wallet, TestERC20, [expandTo18Decimals(1000000)])
 
   const stakingRewards = await deployContract(wallet, StakingRewards, [
     rewardsDistribution,

@@ -1,10 +1,10 @@
 {
-  "name": "@uniswap/liquidity-staker",
-  "version": "1.0.2",
-  "author": "Noah Zinsmeister",
+  "name": "@dexkit/liquidity-staker",
+  "version": "1.0.3",
+  "author": "Joao Campos",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Uniswap/liquidity-staker"
+    "url": "https://github.com/DexKit/liquidity-staker"
   },
   "files": [
     "build"
@@ -18,18 +18,27 @@
     "pretest": "yarn compile",
     "test": "mocha",
     "lint": "prettier ./test/**/*.ts --check",
+    "flat-staking": "npx hardhat flatten  ./contracts/StakingRewards.sol  > ./flats/StakingRewardsFlat.sol",
+    "flat-staking-eth": "npx hardhat flatten ./contracts/StakingRewardsETH.sol > ./flats/StakingRewardETHFlat.sol",
+    "flat-staking-factory": "npx hardhat flatten  ./contracts/StakingRewardsFactory.sol  > ./flats/StakingRewardsFactoryFlat.sol",
+    "flat-staking-factory-eth": "npx hardhat flatten ./contracts/StakingRewardsFactoryETH.sol  > ./flats/StakingRewardsFactoryETHFlat.sol",
     "prepublishOnly": "yarn test"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "openzeppelin-solidity-2.3.0": "npm:openzeppelin-solidity@2.3.0"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-waffle": "^2.0.0",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",
     "@uniswap/v2-core": "^1.0.1",
     "chai": "^4.2.0",
-    "ethereum-waffle": "^3.1.0",
+    "ethereum-waffle": "^3.0.0",
     "ethereumjs-util": "^7.0.5",
+    "ethers": "^5.0.0",
+    "hardhat": "^2.0.6",
     "mocha": "^8.1.3",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
